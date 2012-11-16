@@ -4,7 +4,7 @@ Sendtome.js ist eine Node.js driven fileupload solution.
 # Installation
 
 ```cmd
-git clone <REPO>
+git clone git://github.com/zzeroo/sendtome.js.git
 npm install socket.io
 ```
 
