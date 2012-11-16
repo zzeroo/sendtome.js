@@ -14,8 +14,10 @@ npm install socket.io
 - http://net.tutsplus.com/tutorials/javascript-ajax/how-to-create-a-resumable-video-uploade-in-node-js/
 
 ## Drag 'n Drop
+Erster Versuch
 - http://help.dottoro.com/ljecthax.php
-
+Zweiter Versuch
+- http://www.htmlgoodies.com/html5/javascript/drag-files-into-the-browser-from-the-desktop-HTML5.html#fbid=calLWIBlltD
 
 # License
 
