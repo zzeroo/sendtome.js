@@ -2,22 +2,33 @@
 Sendtome.js ist eine Node.js driven fileupload solution.
 
 # Installation
-
 ```cmd
 git clone git://github.com/zzeroo/sendtome.js.git
 npm install socket.io
 ```
 
-# Links 
+# Scaffold
+* Download exe (Bundle aus nodeJS, index.html)
+* exe starten
+* dyndns wird kontaktiert, Adresse angezeigt (evtl. Funktion zum Versand der Adresse per Mail)
+* Gegenseite öffnet diese URL und kann files per drag n drop senden.
 
+
+# Links 
 ## Idee
 - http://net.tutsplus.com/tutorials/javascript-ajax/how-to-create-a-resumable-video-uploade-in-node-js/
 
 ## Drag 'n Drop
-Erster Versuch
+Hervorragende Beschreibung
+http://www.thebuzzmedia.com/html5-drag-and-drop-and-file-api-tutorial/
+## HTML5 Specs
+- http://www.whatwg.org/specs/web-apps/current-work/multipage/dnd.html
+Weitere Informationen
 - http://help.dottoro.com/ljecthax.php
-Zweiter Versuch
 - http://www.htmlgoodies.com/html5/javascript/drag-files-into-the-browser-from-the-desktop-HTML5.html#fbid=calLWIBlltD
+## Bundle und Installation
+### Windows
+- http://stackoverflow.com/questions/8173232/make-exe-from-node-js-app
 
 # License
 
