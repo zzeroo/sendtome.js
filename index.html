@@ -1,58 +1,107 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
   <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Folder drap and drop - jsFiddle demo by addyo</title>
+
+    <script type='text/javascript' src='/js/lib/dummy.js'></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+
+    <link rel="stylesheet" type="text/css" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
+
+    <style type='text/css'>
+      .container { margin:20px}
+      .highlightOver { background:url('http://www.prguitarman.com/comics/poptart1red1.gif'); background-position:-20px -90px;}
+      .type-png{ background-image:url(http://cdn5.iconfinder.com/data/icons/fatcow/16x16/file_extension_png.png)}
+      .type-css { background-image: url(http://cdn5.iconfinder.com/data/icons/FileTypesIcons/16/css.png);}
+      .type-js { background-image: url(http://cdn1.iconfinder.com/data/icons/CS5/16/ExtendScript_JSX_file_document.png);}
+      .row{ margin:10px}
+      input[type="file"] {  width: 600px; height: 300px; margin-top:-240px; background:transparent; }
+      #fileHolder{width: 600px; height: 200px; overflow:hidden;}
+      .folder-icon{ margin:30px auto; background-image:url('http://cdn5.iconfinder.com/data/icons/Eko_Folders_by_kyo_tux/128/Downloads.png'); height:128px;width:128px;}
+      ul { list-style-type:none}
+
+      li{
+        background-image: url(http://cdn1.iconfinder.com/data/icons/CrystalClear/16x16/mimetypes/unknown.png);
+        background-repeat: no-repeat;
+        padding-left: 1.6em;
+      }
+    </style>
+
+
+    <script type='text/javascript'>//<![CDATA[ 
+      window.onload=function(){
+        /*
+           by Addy Osmani
+           based on the original webkitdirectory POC
+           by Ryan Seddon
+         */
+        var files, 
+            file, 
+            extension, 
+            input = document.getElementById("fileURL"),
+            output = document.getElementById("fileOutput"),
+            holder = document.getElementById("fileHolder");
+
+        input.addEventListener("change", function (e) {
+            files = e.target.files;
+            output.innerHTML = "";
+
+            for (var i = 0, len = files.length; i < len; i++) {
+            file = files[i];
+            extension = file.name.split(".").pop();
+            output.innerHTML += "<li class='type-" + extension + "'>" + file.name + " (" +  Math.floor(file.size/1024 * 100)/100 + "KB)</li>";
+            }
+            }, false);
+
+
+        // This event is fired as the mouse is moved over an element when a drag is occuring
+        input.addEventListener("dragover", function (e) {
+          holder.classList.add("highlightOver");
+        });
+
+        // This event is fired when the mouse leaves an element while a drag is occuring
+        input.addEventListener("dragleave", function (e) {
+          holder.classList.remove("highlightOver");
+        });
+
+        // Fires when the user releases the mouse button while dragging an object.
+        input.addEventListener("dragend", function (e) {
+          holder.classList.remove("highlightOver");
+        });
+
+        // The drop event is fired on the element where the drop was occured at the end of the drag operation
+        input.addEventListener("drop", function (e) {
+          holder.classList.remove("highlightOver");
+        });
+      }//]]>  
+    </script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io.connect('http://localhost', 3000);
     </script>
   </head>
   <body>
-    <div id="drop_zone" webkitdirectory="">Drop files here</div>
-    <output id="list"></output>
+    <div class="container">
+      <div class="page-header">
+        <h1>Demo <small>Drag and drop a directory on file input with <em>webkitdirectory</em></small></h1>
+      </div>
 
-    <script type="text/javascript" language="javascript" charset="utf-8">
-      // Check for the various File API support.
-      if (window.File && window.FileReader && window.FileList && window.Blob) {
-        // Great success! All the File APIs are supported.
-      } else {
-        alert('The File APIs are not fully supported in this browser.');
-      }
+      <div class="row">
+        <div id="fileHolder">
+          <div class="folder-icon"></div>
+          <input type="file" multiple webkitdirectory id="fileURL"/>
+        </div>
 
-      function handleFileSelect(evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-
-        // files is a FileList of File objects. List some properties.
-        var files = evt.dataTransfer.files; // FileList object.
-
-        for (var i = 0, f; f = files[i]; i++) {
-          socket.emit('Upload'); //, { 'Name' : f.name, Data : evt.target.result });
-        }
-      }
-
-      function handleDragOver(evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-        evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-      }
-
-      // Setup the dnd listeners.
-      var dropZone = document.getElementById('drop_zone');
-      dropZone.addEventListener('dragover', handleDragOver, false);
-      dropZone.addEventListener('drop', handleFileSelect, false);
-    
-    </script>
-    <style>
-      #drop_zone {
-        border: 2px dashed #BBB;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
-        padding: 55px;
-        text-align: center;
-        font: 20pt bold,"Vollkorn";
-        color: #BBB;
-      }    
-    </style>
+        <div class="row">
+          <h4>Files to upload:</h4>
+          <ul id="fileOutput">
+          </ul>
+        </div>     
+      </div>
+    </div>
   </body>
 </html>
+
+
