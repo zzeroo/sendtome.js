@@ -26,6 +26,12 @@ http://www.thebuzzmedia.com/html5-drag-and-drop-and-file-api-tutorial/
 Weitere Informationen
 - http://help.dottoro.com/ljecthax.php
 - http://www.htmlgoodies.com/html5/javascript/drag-files-into-the-browser-from-the-desktop-HTML5.html#fbid=calLWIBlltD
+Multiple files
+- http://stackoverflow.com/questions/5826286/how-do-i-use-google-chrome-11s-upload-folder-feature-in-my-own-code
+Working example without node
+- http://jsfiddle.net/addyo/293aA/
+  and the movie to them
+  - http://www.youtube.com/watch?v=WaSP-rdQA_c
 ## Bundle und Installation
 ### Windows
 - http://stackoverflow.com/questions/8173232/make-exe-from-node-js-app

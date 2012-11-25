@@ -4,8 +4,6 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>Folder drap and drop - jsFiddle demo by addyo</title>
 
-    <script type='text/javascript' src='/js/lib/dummy.js'></script>
-
     <link rel="stylesheet" type="text/css" href="/css/result-light.css">
 
     <link rel="stylesheet" type="text/css" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
@@ -30,20 +28,36 @@
     </style>
 
 
-    <script type='text/javascript'>//<![CDATA[ 
+    <script>
       // Check for the various File API support.
       if (window.File && window.FileReader && window.FileList && window.Blob) {
         // Great success! All the File APIs are supported.
       } else {
         alert('The File APIs are not fully supported in this browser.');
       }
-      //]]>  
-    </style>
+    </script>
 
 
     <script type='text/javascript'>//<![CDATA[ 
+      function handleFileSelect(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        var files = evt.dataTransfer.files; // FileList object.
+
+        // files is a FileList of File objects. List some properties.
+        var output = [];
+        for (var i = 0, f; f = files[i]; i++) {
+        }
+      }
+
+      function handleDragOver(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+        evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+      }
       //]]>  
-    </style>
+    </script>
 
 
     <script type='text/javascript'>//<![CDATA[ 
@@ -61,38 +75,50 @@
             holder = document.getElementById("fileHolder");
 
         input.addEventListener("change", function (e) {
-            files = e.target.files;
-            output.innerHTML = "";
+          files = e.target.files;
+          output.innerHTML = "";
 
-            for (var i = 0, len = files.length; i < len; i++) {
+          for (var i = 0, len = files.length; i < len; i++) {
             file = files[i];
+
+            // Only process image files.
+            if (file.name.match('^[.]')) {
+              //continue;
+            }
+
             extension = file.name.split(".").pop();
             output.innerHTML += "<li class='type-" + extension + "'>" + file.name + " (" +  Math.floor(file.size/1024 * 100)/100 + "KB)</li>";
-            }
-            }, false);
+            console.log("Path: " + escape(file.path));
+            console.log("File name: " + escape(file.name));
+            console.log("File type: " + file.type);
+            console.log("File size: " + file.size);
+            console.log("Last edit: " + file.lastModifiedDate.toLocaleDateString());
+          }
+        }, false);
 
 
         // This event is fired as the mouse is moved over an element when a drag is occuring
         input.addEventListener("dragover", function (e) {
-          holder.classList.add("highlightOver");
+            holder.classList.add("highlightOver");
         });
 
         // This event is fired when the mouse leaves an element while a drag is occuring
         input.addEventListener("dragleave", function (e) {
-          holder.classList.remove("highlightOver");
+            holder.classList.remove("highlightOver");
         });
 
         // Fires when the user releases the mouse button while dragging an object.
         input.addEventListener("dragend", function (e) {
-          holder.classList.remove("highlightOver");
+            holder.classList.remove("highlightOver");
         });
 
         // The drop event is fired on the element where the drop was occured at the end of the drag operation
         input.addEventListener("drop", function (e) {
-          holder.classList.remove("highlightOver");
+            holder.classList.remove("highlightOver");
         });
       }//]]>  
     </script>
+
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -109,7 +135,7 @@
       <div class="row">
         <div id="fileHolder">
           <div class="folder-icon"></div>
-          <input type="file" multiple webkitdirectory id="fileURL"/>
+          <input type="file" multiple webkitdirectory mozdirectory id="fileURL"/>
         </div>
 
         <div class="row">
