@@ -31,6 +31,22 @@
 
 
     <script type='text/javascript'>//<![CDATA[ 
+      // Check for the various File API support.
+      if (window.File && window.FileReader && window.FileList && window.Blob) {
+        // Great success! All the File APIs are supported.
+      } else {
+        alert('The File APIs are not fully supported in this browser.');
+      }
+      //]]>  
+    </style>
+
+
+    <script type='text/javascript'>//<![CDATA[ 
+      //]]>  
+    </style>
+
+
+    <script type='text/javascript'>//<![CDATA[ 
       window.onload=function(){
         /*
            by Addy Osmani
@@ -77,10 +93,12 @@
         });
       }//]]>  
     </script>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io.connect('http://localhost', 3000);
     </script>
+
   </head>
   <body>
     <div class="container">
